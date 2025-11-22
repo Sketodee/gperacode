@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-@layer base {
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Wix+Madefor+Display:wght@400..800&display=swap');
-}
-
 @theme {
   /* Modern 3-color scheme - More vivid colors */
 
@@ -62,7 +58,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Space Grotesk", sans-serif !important;
+  font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg-primary);
