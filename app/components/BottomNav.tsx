@@ -112,7 +112,7 @@ function BottomNavContent({ role }: BottomNavProps) {
                                 : 'text-gray-400 hover:text-gray-300'
                         }`}
                     >
-                        <Shield className="w-6 h-6 mb-1" />
+                        <Home className="w-6 h-6 mb-1" />
                         <span className="text-xs font-medium">Dashboard</span>
                     </button>
                     <button

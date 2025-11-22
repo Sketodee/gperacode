@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { LogOut, Home, Clock, User, CheckCircle, XCircle, Users, ChevronLeft, ChevronRight, Settings } from 'lucide-react'
+import { LogOut, Home, Clock, User, CheckCircle, XCircle, Users, ChevronLeft, ChevronRight, Settings, Copy, Check, MessageSquare, Phone, Mail } from 'lucide-react'
 import ThemeToggle from '@/app/components/ThemeToggle'
 import BottomNav from '@/app/components/BottomNav'
 
@@ -12,6 +12,7 @@ export default function ResidentHistory() {
     const [activeCodesPage, setActiveCodesPage] = useState(1)
     const [expiredCodesPage, setExpiredCodesPage] = useState(1)
     const codesPerPage = 5
+    const [copiedCode, setCopiedCode] = useState('')
     const router = useRouter()
 
     useEffect(() => {
@@ -45,6 +46,24 @@ export default function ResidentHistory() {
             }
         } catch (err) {
             console.error('Error fetching codes:', err)
+        }
+    }
+
+    const copyCode = (code: string) => {
+        navigator.clipboard.writeText(code)
+        setCopiedCode(code)
+        setTimeout(() => setCopiedCode(''), 2000)
+    }
+
+    const shareCode = (code: any, method: 'whatsapp' | 'sms' | 'email') => {
+        const message = `Your visitor access code is: ${code.code}\n\nVisitor: ${code.visitorName}\nValid from: ${new Date(code.validFrom).toLocaleString()}\nValid until: ${new Date(code.validUntil).toLocaleString()}\n\nPlease present this code at the estate gate.`
+
+        if (method === 'whatsapp') {
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank')
+        } else if (method === 'sms') {
+            window.open(`sms:?body=${encodeURIComponent(message)}`, '_blank')
+        } else if (method === 'email') {
+            window.open(`mailto:?subject=Estate Access Code - ${code.code}&body=${encodeURIComponent(message)}`, '_blank')
         }
     }
 
@@ -111,9 +130,18 @@ export default function ResidentHistory() {
                         </h2>
                         <div className="space-y-4">
                             {activeCodes.slice((activeCodesPage - 1) * codesPerPage, activeCodesPage * codesPerPage).map((code) => (
-                                <div key={code._id} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                <div key={code._id} className="bg-linear-to-r from-teal-500/10 to-teal-600/10 border border-teal-500/30 rounded-xl p-4">
                                     <div className="flex justify-between items-start mb-2">
-                                        <p className="text-xl font-bold text-white font-mono">{code.code}</p>
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-3xl font-bold text-teal-400 font-mono tracking-wider">{code.code}</p>
+                                            <button
+                                                onClick={() => copyCode(code.code)}
+                                                className="bg-white/10 hover:bg-white/20 p-2 rounded-lg transition-colors"
+                                                title="Copy code"
+                                            >
+                                                {copiedCode === code.code ? <Check className="w-4 h-4 text-teal-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
+                                            </button>
+                                        </div>
                                         <div className="flex gap-2">
                                             {code.codeType === 'group' && (
                                                 <span className="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-lg text-sm font-medium border border-amber-500/30 flex items-center gap-1">
@@ -158,6 +186,32 @@ export default function ResidentHistory() {
                                             <span className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded text-xs border border-purple-500/30">Exit allowed</span>
                                         )}
                                         <span className="bg-gray-500/20 text-gray-400 px-2 py-1 rounded text-xs border border-gray-500/30">Used: {code.usageCount}x</span>
+                                    </div>
+                                    <div className="flex gap-2 mt-3 pt-3 border-t border-teal-500/20">
+                                        <button
+                                            onClick={() => shareCode(code, 'whatsapp')}
+                                            className="flex-1 bg-teal-600/20 hover:bg-teal-600/30 text-teal-400 px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+                                            title="Share via WhatsApp"
+                                        >
+                                            <MessageSquare className="w-4 h-4" />
+                                            WhatsApp
+                                        </button>
+                                        <button
+                                            onClick={() => shareCode(code, 'sms')}
+                                            className="flex-1 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+                                            title="Share via SMS"
+                                        >
+                                            <Phone className="w-4 h-4" />
+                                            SMS
+                                        </button>
+                                        <button
+                                            onClick={() => shareCode(code, 'email')}
+                                            className="flex-1 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+                                            title="Share via Email"
+                                        >
+                                            <Mail className="w-4 h-4" />
+                                            Email
+                                        </button>
                                     </div>
                                 </div>
                             ))}

@@ -395,7 +395,13 @@ export default function ResidentDashboard() {
 
                             <button
                                 type="submit"
-                                disabled={loading}
+                                disabled={
+                                    loading ||
+                                    !formData.validFrom ||
+                                    !formData.validUntil ||
+                                    (codeType === 'single' && !formData.visitorName.trim()) ||
+                                    (codeType === 'group' && !formData.eventName.trim())
+                                }
                                 className="gradient-primary text-white font-semibold px-8 py-3 rounded-xl hover:opacity-90 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg flex items-center gap-2"
                             >
                                 <Plus className="w-5 h-5" />
@@ -403,9 +409,9 @@ export default function ResidentDashboard() {
                             </button>
                         </form>
 
-                        {/* Generated Code Display - Mobile Only */}
+                        {/* Generated Code Display - All Screens */}
                         {latestGeneratedCode && (
-                            <div className="mt-6 bg-teal-500/10 border-2 border-teal-500/30 rounded-2xl p-6 animate-slide-in md:hidden">
+                            <div className="mt-6 bg-teal-500/10 border-2 border-teal-500/30 rounded-2xl p-6 animate-slide-in">
                                 <h3 className="text-xl font-bold text-teal-400 mb-4 flex items-center gap-2">
                                     <CheckCircle className="w-6 h-6" />
                                     Code Generated Successfully!
@@ -469,8 +475,8 @@ export default function ResidentDashboard() {
                         )}
                 </div>
 
-                {/* Desktop: Active and Expired Codes Grid */}
-                <div className="hidden md:grid md:grid-cols-2 gap-6">
+                {/* Desktop: Active and Expired Codes Grid - HIDDEN */}
+                <div className="hidden">
                     <div className="glass rounded-3xl p-8 animate-slide-in">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                             <CheckCircle className="w-6 h-6 text-teal-400" />
