@@ -89,7 +89,7 @@ export default function SecurityDashboard() {
     }
 
     return (
-        <div className="min-h-screen p-4 md:p-8 pb-20 md:pb-8">
+        <div className="min-h-screen p-4 md:p-8 pb-24 md:pb-8">
             <div className="max-w-2xl mx-auto">
                 <div className="flex justify-between items-center mb-8 animate-slide-in">
                     <div>

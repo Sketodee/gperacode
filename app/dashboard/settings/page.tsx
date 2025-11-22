@@ -162,10 +162,10 @@ export default function UnifiedSettings() {
                 </div>
             </div>
 
-            {/* Bottom navigation - only for residents and admins */}
-            {(user.role === 'resident' || user.role === 'admin' || user.role === 'super_admin') && (
-                <BottomNav role={user.role === 'resident' ? 'resident' : 'admin'} />
-            )}
+            {/* Bottom navigation for all roles */}
+            {user.role === 'resident' && <BottomNav role="resident" />}
+            {(user.role === 'admin' || user.role === 'super_admin') && <BottomNav role="admin" />}
+            {user.role === 'security' && <BottomNav role="security" />}
         </div>
     )
 }
