@@ -1,11 +1,11 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Home, History, Users, ScrollText, Settings } from 'lucide-react'
+import { Home, History, Users, ScrollText, Settings, Shield } from 'lucide-react'
 import { Suspense } from 'react'
 
 interface BottomNavProps {
-    role: 'resident' | 'admin'
+    role: 'resident' | 'admin' | 'security'
 }
 
 function BottomNavContent({ role }: BottomNavProps) {
@@ -88,6 +88,37 @@ function BottomNavContent({ role }: BottomNavProps) {
                         onClick={() => router.push('/dashboard/settings')}
                         className={`flex flex-col items-center justify-center flex-1 h-full transition-all ${
                             isOnSettings
+                                ? 'text-primary'
+                                : 'text-gray-400 hover:text-gray-300'
+                        }`}
+                    >
+                        <Settings className="w-6 h-6 mb-1" />
+                        <span className="text-xs font-medium">Settings</span>
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    if (role === 'security') {
+        return (
+            <div className="fixed bottom-0 left-0 right-0 bg-[var(--bg-secondary)] border-t border-white/10 md:hidden z-50 safe-area-pb">
+                <div className="flex justify-around items-center h-16 px-4">
+                    <button
+                        onClick={() => router.push('/dashboard')}
+                        className={`flex flex-col items-center justify-center flex-1 h-full transition-all ${
+                            pathname === '/dashboard'
+                                ? 'text-primary'
+                                : 'text-gray-400 hover:text-gray-300'
+                        }`}
+                    >
+                        <Shield className="w-6 h-6 mb-1" />
+                        <span className="text-xs font-medium">Dashboard</span>
+                    </button>
+                    <button
+                        onClick={() => router.push('/dashboard/settings')}
+                        className={`flex flex-col items-center justify-center flex-1 h-full transition-all ${
+                            pathname === '/dashboard/settings'
                                 ? 'text-primary'
                                 : 'text-gray-400 hover:text-gray-300'
                         }`}

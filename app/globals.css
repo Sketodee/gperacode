@@ -148,6 +148,14 @@ body {
   background: var(--color-danger-hover);
 }
 
+/* Ensure colored buttons maintain white text in light mode */
+[data-theme='light'] .gradient-primary,
+[data-theme='light'] .gradient-success,
+[data-theme='light'] .gradient-warning,
+[data-theme='light'] .gradient-danger {
+  color: white !important;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
