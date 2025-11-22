@@ -203,54 +203,54 @@ export default function SecurityDashboard() {
                 {result && (
                     <div
                         ref={resultRef}
-                        className={`glass rounded-3xl p-6 md:p-8 animate-slide-in overflow-hidden ${
+                        className={`glass rounded-3xl p-5 md:p-6 animate-slide-in overflow-hidden ${
                         result.valid
                             ? 'border-2 border-teal-500/50 bg-teal-500/5'
                             : 'border-2 border-red-500/50 bg-red-500/5'
                         }`}>
                         {/* Success/Error Icon and Message */}
-                        <div className="text-center mb-6">
-                            <div className={`w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse ${
+                        <div className="text-center mb-4">
+                            <div className={`w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse ${
                                 result.valid
                                     ? 'bg-teal-500/20 border-4 border-teal-500/50 shadow-lg shadow-teal-500/20'
                                     : 'bg-red-500/20 border-4 border-red-500/50 shadow-lg shadow-red-500/20'
                                 }`}>
                                 {result.valid ? (
-                                    <CheckCircle className="w-12 h-12 md:w-14 md:h-14 text-teal-400" strokeWidth={2.5} />
+                                    <CheckCircle className="w-10 h-10 md:w-12 md:h-12 text-teal-400" strokeWidth={2.5} />
                                 ) : (
-                                    <XCircle className="w-12 h-12 md:w-14 md:h-14 text-red-400" strokeWidth={2.5} />
+                                    <XCircle className="w-10 h-10 md:w-12 md:h-12 text-red-400" strokeWidth={2.5} />
                                 )}
                             </div>
-                            <h3 className={`text-2xl md:text-3xl font-bold mb-2 ${result.valid ? 'text-teal-400' : 'text-red-400'}`}>
+                            <h3 className={`text-xl md:text-2xl font-bold mb-2 ${result.valid ? 'text-teal-400' : 'text-red-400'}`}>
                                 {result.message}
                             </h3>
                         </div>
 
                         {/* Valid Access Details */}
                         {result.valid && result.details && (
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {/* Visitor Info Card */}
-                                <div className="bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6">
-                                    <div className="flex items-center gap-3 mb-4 pb-4 border-b border-white/10">
-                                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                                            <User className="w-6 h-6 text-primary" />
+                                <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                    <div className="flex items-center gap-3 mb-3 pb-3 border-b border-white/10">
+                                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                                            <User className="w-5 h-5 text-primary" />
                                         </div>
                                         <div className="flex-1 text-left">
-                                            <p className="text-xs font-medium mb-1" style={{ color: 'var(--text-tertiary)' }}>Visitor Name</p>
-                                            <p className="font-bold text-lg md:text-xl" style={{ color: 'var(--text-primary)' }}>
+                                            <p className="text-xs font-medium mb-0.5" style={{ color: 'var(--text-tertiary)' }}>Visitor Name</p>
+                                            <p className="font-bold text-base md:text-lg" style={{ color: 'var(--text-primary)' }}>
                                                 {result.details.visitorName}
                                             </p>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-3">
+                                    <div className="space-y-2">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                                                <Home className="w-5 h-5 text-accent" />
+                                            <div className="w-9 h-9 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                                                <Home className="w-4 h-4 text-accent" />
                                             </div>
                                             <div className="text-left">
                                                 <p className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>Visiting</p>
-                                                <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                                                <p className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>
                                                     {result.details.residentName}
                                                     {result.details.unitNumber && (
                                                         <span style={{ color: 'var(--text-secondary)' }}> • Unit {result.details.unitNumber}</span>
@@ -261,11 +261,11 @@ export default function SecurityDashboard() {
 
                                         {/* Multi-use badge and usage count */}
                                         {result.details.isMultiUse && (
-                                            <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                                                <span className="inline-flex px-4 py-2 rounded-full text-sm font-semibold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+                                            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                                                <span className="inline-flex px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
                                                     Multi-use Code
                                                 </span>
-                                                <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
+                                                <span className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
                                                     {result.details.usageCount} {result.details.usageCount === 1 ? 'use' : 'uses'}
                                                 </span>
                                             </div>
@@ -274,9 +274,9 @@ export default function SecurityDashboard() {
                                 </div>
 
                                 {/* Access Granted Banner */}
-                                <div className="bg-linear-to-r from-teal-500/10 via-teal-500/20 to-teal-500/10 border border-teal-500/30 rounded-2xl p-4 text-center">
-                                    <p className="text-teal-400 font-bold text-lg">✓ Access Granted</p>
-                                    <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                                <div className="bg-linear-to-r from-teal-500/10 via-teal-500/20 to-teal-500/10 border border-teal-500/30 rounded-2xl p-3 text-center">
+                                    <p className="text-teal-400 font-bold text-base">✓ Access Granted</p>
+                                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
                                         {type === 'entry' ? 'Entry logged successfully' : 'Exit logged successfully'}
                                     </p>
                                 </div>
@@ -285,16 +285,16 @@ export default function SecurityDashboard() {
 
                         {/* Invalid Access Details */}
                         {!result.valid && (
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {result.details && result.details.validFrom && (
-                                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5">
-                                        <div className="flex gap-3 items-start">
-                                            <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                                                <AlertCircle className="w-5 h-5 text-amber-400" />
+                                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4">
+                                        <div className="flex gap-2.5 items-start">
+                                            <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                                                <AlertCircle className="w-4 h-4 text-amber-400" />
                                             </div>
                                             <div className="text-left flex-1">
-                                                <p className="font-semibold text-amber-400 mb-2">Code Validity Period</p>
-                                                <div className="text-sm space-y-1" style={{ color: 'var(--text-secondary)' }}>
+                                                <p className="font-semibold text-amber-400 mb-1.5 text-sm">Code Validity Period</p>
+                                                <div className="text-xs space-y-0.5" style={{ color: 'var(--text-secondary)' }}>
                                                     <p>From: {new Date(result.details.validFrom).toLocaleString()}</p>
                                                     <p>Until: {new Date(result.details.validUntil).toLocaleString()}</p>
                                                 </div>
@@ -304,9 +304,9 @@ export default function SecurityDashboard() {
                                 )}
 
                                 {/* Access Denied Banner */}
-                                <div className="bg-linear-to-r from-red-500/10 via-red-500/20 to-red-500/10 border border-red-500/30 rounded-2xl p-4 text-center">
-                                    <p className="text-red-400 font-bold text-lg">✗ Access Denied</p>
-                                    <p className="text-xs mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                                <div className="bg-linear-to-r from-red-500/10 via-red-500/20 to-red-500/10 border border-red-500/30 rounded-2xl p-3 text-center">
+                                    <p className="text-red-400 font-bold text-base">✗ Access Denied</p>
+                                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
                                         Do not grant entry
                                     </p>
                                 </div>
