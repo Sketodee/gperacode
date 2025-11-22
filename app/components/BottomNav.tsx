@@ -2,12 +2,13 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Home, History, Users, ScrollText, Settings } from 'lucide-react'
+import { Suspense } from 'react'
 
 interface BottomNavProps {
     role: 'resident' | 'admin'
 }
 
-export default function BottomNav({ role }: BottomNavProps) {
+function BottomNavContent({ role }: BottomNavProps) {
     const pathname = usePathname()
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -100,4 +101,12 @@ export default function BottomNav({ role }: BottomNavProps) {
     }
 
     return null
+}
+
+export default function BottomNav({ role }: BottomNavProps) {
+    return (
+        <Suspense fallback={null}>
+            <BottomNavContent role={role} />
+        </Suspense>
+    )
 }

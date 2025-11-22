@@ -5,12 +5,12 @@ import { AccessCode, generateAccessCode } from '@/lib/models'
 // Get event details
 export async function GET(
     request: NextRequest,
-    { params }: { params: { eventId: string } }
+    { params }: { params: Promise<{ eventId: string }> }
 ) {
     try {
         await connectDB()
 
-        const eventId = params.eventId
+        const { eventId } = await params
 
         // Find a code with this eventId to get event details
         const eventCode = await AccessCode.findOne({ eventId, isActive: true })
@@ -53,12 +53,12 @@ export async function GET(
 // Register guest for event
 export async function POST(
     request: NextRequest,
-    { params }: { params: { eventId: string } }
+    { params }: { params: Promise<{ eventId: string }> }
 ) {
     try {
         await connectDB()
 
-        const eventId = params.eventId
+        const { eventId } = await params
         const { guestName } = await request.json()
 
         if (!guestName || guestName.trim().length === 0) {

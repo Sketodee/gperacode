@@ -6,7 +6,7 @@ import { verifyToken } from '@/lib/auth'
 // Toggle user active status
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB()
@@ -24,8 +24,9 @@ export async function PATCH(
         }
 
         const { isActive } = await request.json()
+        const { id } = await params
 
-        const user = await User.findById(params.id)
+        const user = await User.findById(id)
 
         if (!user) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 })

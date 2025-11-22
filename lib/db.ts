@@ -29,7 +29,8 @@ async function connectDB() {
     }
 
     try {
-        cached.conn = await cached.promise
+        const mongooseInstance = await cached.promise
+        cached.conn = mongooseInstance.connection
     } catch (e) {
         cached.promise = null
         throw e

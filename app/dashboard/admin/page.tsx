@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { LogOut, UserPlus, Users, ScrollText, AlertCircle, Shield, Copy, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import ThemeToggle from '@/app/components/ThemeToggle'
 import BottomNav from '@/app/components/BottomNav'
 
-export default function AdminDashboard() {
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
+
+function AdminDashboardContent() {
     const [activeTab, setActiveTab] = useState<'create' | 'users' | 'logs'>('create')
     const [user, setUser] = useState<any>(null)
     const [users, setUsers] = useState<any[]>([])
@@ -608,5 +611,17 @@ export default function AdminDashboard() {
 
             <BottomNav role="admin" />
         </div>
+    )
+}
+
+export default function AdminDashboard() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+        }>
+            <AdminDashboardContent />
+        </Suspense>
     )
 }
