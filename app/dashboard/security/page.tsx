@@ -176,7 +176,7 @@ export default function SecurityDashboard() {
                                     type="text"
                                     value={code}
                                     onChange={(e) => setCode(e.target.value.toUpperCase())}
-                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-4 py-6 md:py-8 text-4xl md:text-5xl font-bold text-center placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all uppercase tracking-[0.3em] font-mono"
+                                    className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-4 py-4 md:py-5 text-3xl md:text-4xl font-bold text-center placeholder-gray-500 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all uppercase tracking-[0.3em] font-mono"
                                     style={{ color: 'var(--text-primary)' }}
                                     placeholder="••••••"
                                     maxLength={6}
@@ -194,7 +194,7 @@ export default function SecurityDashboard() {
                         <button
                             type="submit"
                             disabled={loading || code.length !== 6}
-                            className="w-full gradient-primary text-white font-bold py-5 md:py-6 text-lg md:text-xl rounded-2xl hover:opacity-90 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-2xl flex items-center justify-center gap-3"
+                            className="w-full gradient-primary text-white font-bold py-4 md:py-5 text-base md:text-lg rounded-2xl hover:opacity-90 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-2xl flex items-center justify-center gap-3"
                         >
                             {loading ? (
                                 <>
