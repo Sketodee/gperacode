@@ -115,9 +115,7 @@ export default function LoginPage() {
                     </button>
                 </form>
 
-                <div className="mt-6 text-center text-sm text-gray-500">
-                    <p>Demo: admin123@test.com / Password123*</p>
-                </div>
+               
             </div>
         </div>
     )
