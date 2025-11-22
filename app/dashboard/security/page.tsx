@@ -37,10 +37,21 @@ export default function SecurityDashboard() {
     useEffect(() => {
         if (result && resultRef.current) {
             setTimeout(() => {
-                resultRef.current?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest'
-                })
+                // Get the element's position
+                const element = resultRef.current
+                if (element) {
+                    const elementRect = element.getBoundingClientRect()
+                    const absoluteElementTop = elementRect.top + window.pageYOffset
+
+                    // Account for bottom navbar height (64px) plus some padding (32px)
+                    const offset = 96
+                    const scrollToPosition = absoluteElementTop - offset
+
+                    window.scrollTo({
+                        top: scrollToPosition,
+                        behavior: 'smooth'
+                    })
+                }
             }, 100)
         }
     }, [result])
