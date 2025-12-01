@@ -19,6 +19,19 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
         }
 
+        // Update expired codes before fetching
+        const now = new Date()
+        await AccessCode.updateMany(
+            {
+                residentId: payload.userId,
+                isActive: true,
+                validUntil: { $lt: now }
+            },
+            {
+                $set: { isActive: false }
+            }
+        )
+
         const codes = await AccessCode.find({ residentId: payload.userId }).sort({ createdAt: -1 })
 
         return NextResponse.json({ codes })
@@ -86,13 +99,25 @@ export async function POST(request: NextRequest) {
             existingCode = await AccessCode.findOne({ code })
         }
 
+        // Parse dates with explicit timezone handling for Nigerian time (WAT)
+        // The datetime-local input sends the time in local format (e.g., "2024-12-01T15:24")
+        // We append 'Z' and then adjust for WAT (UTC+1) to ensure consistency
+        const parseWATDate = (dateStr: string) => {
+            // If the date string doesn't include timezone info, treat it as WAT (UTC+1)
+            if (!dateStr.includes('Z') && !dateStr.includes('+')) {
+                // Append timezone offset for Nigeria (WAT = UTC+1)
+                return new Date(dateStr + '+01:00')
+            }
+            return new Date(dateStr)
+        }
+
         const newCode = await AccessCode.create({
             code,
             residentId: payload.userId,
             residentName: resident.name,
             visitorName: type === 'single' ? visitorName : (eventName || 'Group Access'),
-            validFrom: new Date(validFrom),
-            validUntil: new Date(validUntil),
+            validFrom: parseWATDate(validFrom),
+            validUntil: parseWATDate(validUntil),
             isMultiUse: type === 'group' || isMultiUse || false,
             allowExit: type === 'group' ? true : (allowExit === true),
             usageCount: 0,

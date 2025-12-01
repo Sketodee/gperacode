@@ -155,7 +155,7 @@ export default function SecurityDashboard() {
                                     onClick={() => setType('exit')}
                                     className={`py-4 md:py-5 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2 ${
                                         type === 'exit'
-                                            ? 'gradient-warning text-white shadow-xl scale-105'
+                                            ? 'gradient-danger text-white shadow-xl scale-105'
                                             : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:scale-105'
                                         }`}
                                     style={{ color: type === 'exit' ? 'white' : 'var(--text-secondary)' }}
